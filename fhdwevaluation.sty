@@ -1,0 +1,46 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{fhdwevaluation}[2022/09/16 LaTeX Evaluation Package for FHDW]
+
+\DeclareOption*{
+ \PackageWarning{fhdwevaluation}{Unknown option '\CurrentOption'}
+}
+
+\ProcessOptions\relax
+
+\RequirePackage[ngerman]{babel}
+\RequirePackage[T1]{fontenc}
+
+\newcounter{evaluationcounter}
+\setcounter{evaluationcounter}{0}
+\newcounter{evaluationpartcounter}
+\setcounter{evaluationpartcounter}{0}
+
+\newcommand{\gradetext}{%
+\ifnum\value{evaluationcounter}<50\relax%
+5,0%
+\else\ifnum\value{evaluationcounter}<59\relax%
+4,0%
+\else\ifnum\value{evaluationcounter}<67\relax%
+3,7%
+\else\ifnum\value{evaluationcounter}<72\relax%
+3,3%
+\else\ifnum\value{evaluationcounter}<77\relax%
+3,0%
+\else\ifnum\value{evaluationcounter}<81\relax%
+2,7%
+\else\ifnum\value{evaluationcounter}<85\relax%
+2,3%
+\else\ifnum\value{evaluationcounter}<89\relax%
+2,0%
+\else\ifnum\value{evaluationcounter}<92\relax%
+1,7%
+\else\ifnum\value{evaluationcounter}<97\relax%
+1,3%
+\else%
+1,0%
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+\newcommand{\grade}{\begin{center}{\large\textbf{\gradetext}}\end{center}}
+\newcommand{\evaluation}[2]{\addtocounter{evaluationcounter}{#1}\begin{flushright}{Bewertung: #1 von #2 Punkten}\end{flushright}}
+\newcommand{\evaluationpartresult}[1]{\evaluation{\arabic{evaluationpartcounter}}{#1}\setcounter{evaluationpartcounter}{0}}
+\newcommand{\addevaluationpart}[1]{\addtocounter{evaluationpartcounter}{#1}}
