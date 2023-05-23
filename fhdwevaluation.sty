@@ -43,4 +43,6 @@
 \newcommand{\grade}{\begin{center}{\large\textbf{\gradetext}}\end{center}}
 \newcommand{\evaluation}[2]{\addtocounter{evaluationcounter}{#1}\begin{flushright}{Bewertung: #1 von #2 Punkten}\end{flushright}}
 \newcommand{\evaluationpartresult}[1]{\evaluation{\arabic{evaluationpartcounter}}{#1}\setcounter{evaluationpartcounter}{0}}
+\newcommand{\addevaluation}[1]{\addtocounter{evaluationcounter}{#1}}
 \newcommand{\addevaluationpart}[1]{\addtocounter{evaluationpartcounter}{#1}}
+\newcommand{\evaluationpoints}{\arabic{evaluationcounter}}
