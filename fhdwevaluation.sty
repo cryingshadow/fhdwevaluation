@@ -9,11 +9,15 @@
 
 \RequirePackage[ngerman]{babel}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{ifthen}
 
 \newcounter{evaluationcounter}
 \setcounter{evaluationcounter}{0}
 \newcounter{evaluationpartcounter}
 \setcounter{evaluationpartcounter}{0}
+
+\newboolean{unused}
+\setboolean{unused}{false}
 
 \newcommand{\gradetext}{%
 \ifnum\value{evaluationcounter}<50\relax%
@@ -41,8 +45,15 @@
 \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 \newcommand{\grade}{\begin{center}{\large\textbf{\gradetext}}\end{center}}
-\newcommand{\evaluation}[2]{\addtocounter{evaluationcounter}{#1}\begin{flushright}{Bewertung: #1 von #2 Punkten}\end{flushright}}
+\newcommand{\evaluation}[2]{\ifnotempty{#1}{\addtocounter{evaluationcounter}{#1}\begin{flushright}{Bewertung: #1 von #2 Punkten}\end{flushright}}}
 \newcommand{\evaluationpartresult}[1]{\evaluation{\arabic{evaluationpartcounter}}{#1}\setcounter{evaluationpartcounter}{0}}
 \newcommand{\addevaluation}[1]{\addtocounter{evaluationcounter}{#1}}
 \newcommand{\addevaluationpart}[1]{\addtocounter{evaluationpartcounter}{#1}}
 \newcommand{\evaluationpoints}{\arabic{evaluationcounter}}
+\newcommand{\ifnotempty}[2]{%
+\if\relax\detokenize{#1}\relax
+\setboolean{unused}{true}
+\else%
+#2%
+\fi%
+}
