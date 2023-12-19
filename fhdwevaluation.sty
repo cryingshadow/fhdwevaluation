@@ -57,3 +57,10 @@
 #2%
 \fi%
 }
+\newcommand{\orelse}[2]{%
+\if\relax\detokenize{#1}\relax
+#2%
+\else%
+#1%
+\fi%
+}
