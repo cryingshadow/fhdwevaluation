@@ -10,6 +10,7 @@
 \RequirePackage[ngerman]{babel}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{ifthen}
+\RequirePackage{etoolbox}
 
 \newcounter{evaluationcounter}
 \setcounter{evaluationcounter}{0}
@@ -18,6 +19,9 @@
 
 \newboolean{unused}
 \setboolean{unused}{false}
+
+\newboolean{pointswarning}
+\setboolean{pointswarning}{true}
 
 \newcommand{\gradetext}{%
 \ifnum\value{evaluationcounter}<50\relax%
@@ -43,6 +47,22 @@
 \else%
 1,0%
 \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+\ifthenelse{\boolean{pointswarning}}{%
+\ifboolexpr{%
+test {\ifnumcomp{\value{evaluationcounter}}{=}{47}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{48}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{49}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{58}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{66}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{71}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{76}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{80}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{84}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{88}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{91}} or 
+test {\ifnumcomp{\value{evaluationcounter}}{=}{96}}
+}{\footnote{\textcolor{red}{Ergebnis ist grenzwertig!}}}{}%
+}{}%
 }
 \newcommand{\grade}{\begin{center}{\large\textbf{\gradetext}}\end{center}}
 \newcommand{\evaluation}[2]{\ifnotempty{#1}{\addtocounter{evaluationcounter}{#1}\begin{flushright}{Bewertung: #1 von #2 Punkten}\end{flushright}}}
