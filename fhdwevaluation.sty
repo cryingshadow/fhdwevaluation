@@ -12,8 +12,12 @@
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 
+\newcounter{evaluationtotal}
+\setcounter{evaluationtotal}{100}
 \newcounter{evaluationcounter}
 \setcounter{evaluationcounter}{0}
+\newcounter{evaluationpercent}
+\setcounter{evaluationpercent}{0}
 \newcounter{evaluationpartcounter}
 \setcounter{evaluationpartcounter}{0}
 
@@ -24,43 +28,43 @@
 \setboolean{pointswarning}{true}
 
 \newcommand{\gradetext}{%
-\ifnum\value{evaluationcounter}<50\relax%
+\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<50\relax%
 5,0%
-\else\ifnum\value{evaluationcounter}<59\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<59\relax%
 4,0%
-\else\ifnum\value{evaluationcounter}<67\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<67\relax%
 3,7%
-\else\ifnum\value{evaluationcounter}<72\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<72\relax%
 3,3%
-\else\ifnum\value{evaluationcounter}<77\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<77\relax%
 3,0%
-\else\ifnum\value{evaluationcounter}<81\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<81\relax%
 2,7%
-\else\ifnum\value{evaluationcounter}<85\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<85\relax%
 2,3%
-\else\ifnum\value{evaluationcounter}<89\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<89\relax%
 2,0%
-\else\ifnum\value{evaluationcounter}<92\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<92\relax%
 1,7%
-\else\ifnum\value{evaluationcounter}<97\relax%
+\else\ifnum\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}<97\relax%
 1,3%
 \else%
 1,0%
 \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 \ifthenelse{\boolean{pointswarning}}{%
 \ifboolexpr{%
-test {\ifnumcomp{\value{evaluationcounter}}{=}{47}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{48}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{49}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{58}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{66}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{71}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{76}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{80}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{84}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{88}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{91}} or 
-test {\ifnumcomp{\value{evaluationcounter}}{=}{96}}
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{47}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{48}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{49}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{58}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{66}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{71}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{76}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{80}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{84}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{88}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{91}} or 
+test {\ifnumcomp{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}{=}{96}}
 }{\footnote{\textcolor{red}{Ergebnis ist grenzwertig!}}}{}%
 }{}%
 }
@@ -70,6 +74,7 @@ test {\ifnumcomp{\value{evaluationcounter}}{=}{96}}
 \newcommand{\addevaluation}[1]{\addtocounter{evaluationcounter}{#1}}
 \newcommand{\addevaluationpart}[1]{\addtocounter{evaluationpartcounter}{#1}}
 \newcommand{\evaluationpoints}{\arabic{evaluationcounter}}
+\newcommand{\evaluationpercent}{\setcounter{evaluationpercent}{\numexpr100*\value{evaluationcounter}/\value{evaluationtotal}}\arabic{evaluationpercent}\%}
 \newcommand{\ifnotempty}[2]{%
 \if\relax\detokenize{#1}\relax
 \setboolean{unused}{true}
